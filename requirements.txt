@@ -1,0 +1,4 @@
+gevent
+requests_html
+loguru
+my_fake_useragent
