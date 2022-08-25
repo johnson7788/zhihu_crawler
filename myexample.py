@@ -90,12 +90,15 @@ def spider_by_articleid():
         title = info["title"]
         title = title.replace(" ",'_').replace(":",'_')
         url = info["url"]
+        article_file = os.path.join(final_saved, f"{title}.md")
+        if os.path.exists(article_file):
+            print(f"文章: {article_file} 已经下载过了，跳过")
+            continue
         article_id = url.split('p/')[-1]
         spinfos = common_crawler(task_id=article_id, data_type="article")
         spinfo = list(spinfos)[0]
         # 根据id保存文章内容到文件
         content = spinfo.pop("content")
-        article_file = os.path.join(final_saved, f"{title}.md")
         with open(article_file, "w", encoding="utf-8") as f:
             f.write(content)
         print(f"保存文章: {title}  到  {article_file}")
